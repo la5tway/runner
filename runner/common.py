@@ -1,8 +1,12 @@
 from typing import Any, Awaitable, Callable, Protocol, Set, TypeVar
 
 T = TypeVar("T", covariant=True)
-
 RunnerEventHandler = Callable[..., None] | Callable[..., Awaitable[None]]
+
+
+class Dependency(Protocol):
+    name: str
+    annotation: Any
 
 
 class GetServiceContext(Protocol):
@@ -77,6 +81,20 @@ class Provider(Protocol):
         method: Callable[[], Any],
         exclude_names: Set[str] | None = None,
     ) -> Callable[..., Any]:
+        ...
+
+    def get_params(
+        self,
+        method: Callable[[], Any],
+        exclude_names: Set[str] | None = None,
+    ) -> dict[str, Dependency]:
+        ...
+
+    def resolve_signature(
+        self,
+        params: dict[str, Dependency],
+        **kwargs: Any,
+    ) -> dict[str, Any]:
         ...
 
 
