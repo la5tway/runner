@@ -7,13 +7,13 @@ def readme():
 
 
 setup(
-    name="reloader",
+    name="runner",
     version="0.1.0",
     long_description=readme(),
     long_description_content_type="text/markdown",
     packages=find_packages(),
     package_data={"": ["LICENSE"]},
-    package_dir={"reloader": "reloader"},
+    package_dir={"runner": "runner"},
     include_package_data=True,
     zip_safe=False,
     cmdclass={},
